@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Weather Search";
+}
+
+<h1>Weather Search</h1>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div style="color: red;">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+<form asp-action="SearchByCity" method="post">
+    <input type="text" name="cityName" placeholder="Enter city name" required />
+    <button type="submit">Search by City</button>
+</form>
+
+</br>
+
+<form asp-action="SearchByZipCode" method="post">
+    <input type="text" name="zipCode" placeholder="Enter zip code" required />
+    <button type="submit">Search by Zip Code</button>
+</form>

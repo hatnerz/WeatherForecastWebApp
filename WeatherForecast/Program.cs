@@ -1,7 +1,27 @@
+using WeatherForecast.Models;
+using Microsoft.EntityFrameworkCore;
+using WeatherForecast.Services;
+using WeatherForecast.Interfaces;
+using Quartz;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.AddConsole();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient<IWeatherService, WeatherService>();
+builder.Services.AddDbContext<DataContext>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSingleton<IWeatherRefreshServiceControl, WeatherRefreshService>();
+
+builder.Services.AddSingleton<IWeatherStoringService>(provider =>
+    new WeatherStoringService(
+        () => provider.CreateScope().ServiceProvider.GetRequiredService<DataContext>()
+    ));
+
+builder.Services.AddHostedService<WeatherRefreshService>();
 
 var app = builder.Build();
 

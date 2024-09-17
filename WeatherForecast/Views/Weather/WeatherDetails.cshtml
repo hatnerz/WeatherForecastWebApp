@@ -1,0 +1,16 @@
+﻿@model WeatherForecast.Models.WeatherData
+
+@{
+    ViewData["Title"] = "Weather Details";
+}
+
+<h1>Weather Details</h1>
+
+<div>
+    <p>City: @Model.City</p>
+    <p>Zip Code: @Model.ZipCode</p>
+    <p>Temperature: @Model.Temperature</p>
+    <p>Description: @Model.Description</p>
+    <p>Last Updated: @Model.LastUpdated</p>
+</div>
+
